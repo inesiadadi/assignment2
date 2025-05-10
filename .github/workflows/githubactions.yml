@@ -1,4 +1,4 @@
-name: Java CI with 
+name: Build and Coverage
 
 on:
   push:
@@ -20,4 +20,13 @@ jobs:
       
       - name: Build and test with Maven
         working-directory: roman-number
-        run: mvn clean verify
+        run: mvn clean test jacoco:report
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+
+      - name: Upload Jacoco to Coveralls
+        if: always()
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: roman-number/target/site/jacoco/jacoco.xml

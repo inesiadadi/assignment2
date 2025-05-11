@@ -46,20 +46,46 @@ public class RomanPrinterTest {
     }
 
     @Test
-    public void testPrintIII() {
+    public void testPrintL() {
         String expected = 
-            " _____    _____    _____   \n" +
-            "|_   _|  |_   _|  |_   _|  \n" +
-            "  | |      | |      | |    \n" +
-            "  | |      | |      | |    \n" +
-            " _| |_    _| |_    _| |_   \n" +
-            "|_____|  |_____|  |_____|  \n";
-        String result = RomanPrinter.print(3);
+            " _        \n"+
+            "| |       \n"+
+            "| |       \n"+
+            "| |       \n"+
+            "| |____   \n"+
+            "|______|  \n";
+        String result = RomanPrinter.print(50);
         assertEquals(expected, result);
     }
 
     @Test
-    public void testPrintXVI() {
+    public void testPrintC() {
+        String expected = 
+            "  _____   \n"+
+            " / ____|  \n"+
+            "| |       \n"+
+            "| |       \n"+
+            "| |____   \n"+
+            " \\_____|  \n";
+        String result = RomanPrinter.print(100);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testPrintD() {
+        String expected = 
+            " _____    \n"+
+            "|  __ \\   \n"+
+            "| |  | |  \n"+
+            "| |  | |  \n"+
+            "| |__| |  \n"+
+            "|_____/   \n";
+        String result = RomanPrinter.print(500);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testPrintMultipleNumber() {
         String expected = 
             "__   __  __      __   _____   \n" +
             "\\ \\ / /  \\ \\    / /  |_   _|  \n" +
@@ -73,7 +99,13 @@ public class RomanPrinterTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testPrintZeroThrowsException() {
-        RomanPrinter.print(0);
+        String expectedMessage = "Valore errato: non nel range 1-1000";
+        try {
+            RomanPrinter.print(0);
+        } catch (IllegalArgumentException e) {
+            assertEquals(expectedMessage, e.getMessage());
+            throw e;
+        }
     }
 
     @Test(expected = IllegalArgumentException.class)
